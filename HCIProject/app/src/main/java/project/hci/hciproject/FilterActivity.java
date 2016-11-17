@@ -11,8 +11,6 @@ import java.util.ArrayList;
 public class FilterActivity extends AppCompatActivity {
 
 
-
-
     ArrayList<Item> items;
 
     @Override
