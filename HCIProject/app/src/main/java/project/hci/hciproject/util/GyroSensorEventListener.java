@@ -3,7 +3,6 @@ package project.hci.hciproject.util;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.util.Log;
 
 import static java.lang.Math.cos;
@@ -66,11 +65,6 @@ public class GyroSensorEventListener implements SensorEventListener {
             }
         }
         timestamp = event.timestamp;
-        float[] deltaRotationMatrix = new float[9];
-        SensorManager.getRotationMatrixFromVector(deltaRotationMatrix, deltaRotationVector);
-        // User code should concatenate the delta rotation we computed with the current rotation
-        // in order to get the updated rotation.
-//             rotationCurrent = rotationCurrent * deltaRotationMatrix;
     }
 
     @Override
