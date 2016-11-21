@@ -59,9 +59,9 @@ public class GyroSensorEventListener implements SensorEventListener {
                 Log.d("Movement", "UP");
             } else if (deltaRotationVector[0] < -0.2) {
                 Log.d("Movement", "DOWN");
-            } else if (deltaRotationVector[1] > 0.2) {
+            } else if (deltaRotationVector[1] > 0.3) {
                 Log.d("Movement", "RIGHT");
-            } else if (deltaRotationVector[1] < -0.2) {
+            } else if (deltaRotationVector[1] < -0.3) {
                 Log.d("Movement", "LEFT");
             }
         }
