@@ -59,20 +59,25 @@ public class MainActivity extends AppCompatActivity {
                 deltaRotationVector[2] = sinThetaOverTwo * axisZ;
                 deltaRotationVector[3] = cosThetaOverTwo;
 
-                if (deltaRotationVector[0] > 2) {
+                if (deltaRotationVector[0] > 0.2) {
                     Log.d("Movement", "UP");
-                } else if (deltaRotationVector[0] < -2) {
+                } else if (deltaRotationVector[0] < -0.2) {
                     Log.d("Movement", "DOWN");
-                } else if (deltaRotationVector[1] > 2) {
-                    Log.d("Movement", "LEFT");
-                } else if (deltaRotationVector[1] < -2) {
+                } else if (deltaRotationVector[1] > 0.2) {
                     Log.d("Movement", "RIGHT");
+                } else if (deltaRotationVector[1] < -0.2) {
+                    Log.d("Movement", "LEFT");
                 }
 
-
-//                Log.d("MY_APP, x", deltaRotationVector[0]
-//                        + " y: " + deltaRotationVector[1]
-//                        + " z: " + deltaRotationVector[2]);
+//                if (axisX > 0.4) {
+//                    Log.d("Movement", "UP");
+//                } else if (axisX < -0.4) {
+//                    Log.d("Movement", "DOWN");
+//                } else if (axisY > 0.4) {
+//                    Log.d("Movement", "RIGHT");
+//                } else if (axisY < -0.4) {
+//                    Log.d("Movement", "LEFT");
+//                }
             }
             timestamp = event.timestamp;
             float[] deltaRotationMatrix = new float[9];
@@ -80,9 +85,6 @@ public class MainActivity extends AppCompatActivity {
             // User code should concatenate the delta rotation we computed with the current rotation
             // in order to get the updated rotation.
 //             rotationCurrent = rotationCurrent * deltaRotationMatrix;
-//
-//            Log.d("MY_APP, x", String.valueOf(event.values[0]) + " y: " +
-//                    String.valueOf(event.values[1]) + " z: " + String.valueOf(event.values[2]));
         }
 
         @Override
