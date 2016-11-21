@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 deltaRotationVector[2] = sinThetaOverTwo * axisZ;
                 deltaRotationVector[3] = cosThetaOverTwo;
 
+                // TODO see if i can add a time where no sensor data recorded after movement detected
                 if (deltaRotationVector[0] > 0.2) {
                     Log.d("Movement", "UP");
                 } else if (deltaRotationVector[0] < -0.2) {
@@ -68,16 +69,6 @@ public class MainActivity extends AppCompatActivity {
                 } else if (deltaRotationVector[1] < -0.2) {
                     Log.d("Movement", "LEFT");
                 }
-
-//                if (axisX > 0.4) {
-//                    Log.d("Movement", "UP");
-//                } else if (axisX < -0.4) {
-//                    Log.d("Movement", "DOWN");
-//                } else if (axisY > 0.4) {
-//                    Log.d("Movement", "RIGHT");
-//                } else if (axisY < -0.4) {
-//                    Log.d("Movement", "LEFT");
-//                }
             }
             timestamp = event.timestamp;
             float[] deltaRotationMatrix = new float[9];
