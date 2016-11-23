@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import project.hci.hciproject.util.GyroSensorEventListener;
+import project.hci.hciproject.util.GyroSensorLogic;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSensorChanged(SensorEvent sensorEvent) {
                 if (timestamp != 0) {
 
-                    GyroSensorEventListener.listenerLogic(sensorEvent,
+                    GyroSensorLogic.listenerLogic(sensorEvent,
                             timestamp,
                             deltaRotationVector);
 

@@ -10,7 +10,7 @@ import static java.lang.Math.sqrt;
  * @author jake degiovanni
  */
 
-public class GyroSensorEventListener {
+public class GyroSensorLogic {
 
     public static void listenerLogic(SensorEvent event,
                                      long timestamp,
