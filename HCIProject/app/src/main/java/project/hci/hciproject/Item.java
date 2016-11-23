@@ -16,10 +16,6 @@ public class Item {
         itemAvailable= available;
     }
 
-    public void populateLists(ArrayList<String> bars){
-        bars.add("Oran Mor");
-        bars.add("Curlers");
-    }
 
     public String getName() {
         return itemName;

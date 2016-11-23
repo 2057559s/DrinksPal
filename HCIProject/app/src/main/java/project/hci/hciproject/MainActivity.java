@@ -1,11 +1,11 @@
 package project.hci.hciproject;
 
-<<<<<<< HEAD
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-=======
+
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEventListener;
@@ -14,7 +14,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import project.hci.hciproject.util.GyroSensorEventListener;
->>>>>>> 3f8bea4edc3cdbb712252d7769f44a4cff041ae3
+
 
 public class MainActivity extends AppCompatActivity {
 

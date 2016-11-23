@@ -78,9 +78,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         // Set item views based on your views and data model
         TextView textView = viewHolder.nameTextView;
-        //textView.setText(Item.getName());
-        Button button = viewHolder.messageButton;
-        //button.setText("Message");
+        textView.setText(contact);
+
     }
 
     // Returns the total count of items in the list
