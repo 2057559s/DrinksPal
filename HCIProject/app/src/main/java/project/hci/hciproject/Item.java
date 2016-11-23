@@ -32,7 +32,20 @@ public class Item {
 
         for (int i = 1; i <= numItems; i++) {
 
-            bars.add("Bar: ");
+            bars.add("Curlers");
+            bars.add("Oran Mor");
+            bars.add("Tennents Bar");
+            bars.add("Vodka Wodka");
+            bars.add("Briel");
+            bars.add("Generic Bar");
+            bars.add("Generic Bar");
+            bars.add("Generic Bar");
+            bars.add("Generic Bar");
+            bars.add("Generic Bar");
+            bars.add("Generic Bar");
+            bars.add("Generic Bar");
+            bars.add("Generic Bar");
+
         }
 
         return bars;
