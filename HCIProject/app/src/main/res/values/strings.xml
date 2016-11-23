@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">HCI Project</string>
+    <string name="app_name">DrinksPal</string>
+    <string name="left_right">Tilt Left or Right</string>
+    <string name="first_message">Shake for something wild!!!</string>
 </resources>
