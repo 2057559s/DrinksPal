@@ -23,7 +23,7 @@ public class FilterActivity extends AppCompatActivity {
         rvContacts = (RecyclerView) findViewById(R.id.rvItems);
 
         // Initialize contacts
-        items = Item.createContactsList(3);
+        items = Item.createContactsList(20);
         // Create adapter passing in the sample user data
         MyAdapter adapter = new MyAdapter(this, items);
         // Attach the adapter to the recyclerview to populate items

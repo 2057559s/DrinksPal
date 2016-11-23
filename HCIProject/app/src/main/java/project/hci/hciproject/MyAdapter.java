@@ -34,7 +34,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             super(itemView);
 
             nameTextView = (TextView) itemView.findViewById(R.id.item_name);
-            messageButton = (Button) itemView.findViewById(R.id.message_button);
         }
     }
 
@@ -81,7 +80,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         TextView textView = viewHolder.nameTextView;
         //textView.setText(Item.getName());
         Button button = viewHolder.messageButton;
-        button.setText("Message");
+        //button.setText("Message");
     }
 
     // Returns the total count of items in the list
