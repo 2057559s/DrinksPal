@@ -11,16 +11,19 @@ import java.util.ArrayList;
 public class FilterActivity extends AppCompatActivity {
 
 
-    ArrayList<Item> items;
+    ArrayList<String> items;
+    RecyclerView rvContacts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_filter);
         // ...
         // Lookup the recyclerview in activity layout
-        RecyclerView rvContacts = (RecyclerView) findViewById(R.id.rvItems);
+        rvContacts = (RecyclerView) findViewById(R.id.rvItems);
 
         // Initialize contacts
-        items = Item.createContactsList(20);
+        items = Item.createContactsList(3);
         // Create adapter passing in the sample user data
         MyAdapter adapter = new MyAdapter(this, items);
         // Attach the adapter to the recyclerview to populate items

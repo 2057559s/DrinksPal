@@ -42,12 +42,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
     // Store a member variable for the contacts
-    private List<Item> mItems;
+    private List<String> mItems;
     // Store the context for easy access
     private Context mContext;
 
     // Pass in the contact array into the constructor
-    public MyAdapter(Context context, List<Item> items) {
+    public MyAdapter(Context context, List<String> items) {
         mItems = items;
         mContext = context;
     }
@@ -75,11 +75,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(MyAdapter.ViewHolder viewHolder, int position) {
         // Get the data model based on position
-        Item contact = mItems.get(position);
+        String contact = mItems.get(position);
 
         // Set item views based on your views and data model
         TextView textView = viewHolder.nameTextView;
-        textView.setText(contact.getName());
+        //textView.setText(Item.getName());
         Button button = viewHolder.messageButton;
         button.setText("Message");
     }

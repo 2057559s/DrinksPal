@@ -8,9 +8,17 @@ public class Item {
     private String itemName;
     private boolean itemAvailable;
 
+    ArrayList<String> bars;
+    ArrayList<String> beers;
+
     public Item(String name, boolean available) {
         itemName = name;
         itemAvailable= available;
+    }
+
+    public void populateLists(ArrayList<String> bars){
+        bars.add("Oran Mor");
+        bars.add("Curlers");
     }
 
     public String getName() {
@@ -23,13 +31,14 @@ public class Item {
 
     private static int lastItemId = 0;
 
-    public static ArrayList<Item> createContactsList(int numItems) {
-        ArrayList<Item> items = new ArrayList<Item>();
+    public static ArrayList<String> createContactsList(int numItems) {
+        ArrayList<String> bars = new ArrayList<String>();
 
         for (int i = 1; i <= numItems; i++) {
-            items.add(new Item("Item " + ++lastItemId, i <= numItems / 2));
+
+            bars.add("Bar: ");
         }
 
-        return items;
+        return bars;
     }
 }

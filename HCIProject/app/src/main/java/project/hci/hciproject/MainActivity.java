@@ -13,10 +13,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void openGrid(View view) {
-        Intent intent = new Intent(MainActivity.this, FilterActivity.class);
-        startActivity(intent);
-    }
+//    public void openFilter(View view) {
+//        Intent intent = new Intent(MainActivity.this, FilterActivity.class);
+//        startActivity(intent);
+//    }
 
 
 }
