@@ -11,6 +11,8 @@ import io.realm.RealmConfiguration;
 
 public class HCIApplication extends Application {
 
+    private Realm realm;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -22,5 +24,23 @@ public class HCIApplication extends Application {
                 .build();
 
         Realm.setDefaultConfiguration(configuration);
+
+        realm = Realm.getDefaultInstance();
+
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.deleteAll();
+            }
+        });
+
+        PopulateData.populateBarsAndDrink();
+
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        realm.close();
     }
 }
