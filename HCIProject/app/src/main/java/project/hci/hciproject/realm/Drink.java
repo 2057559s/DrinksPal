@@ -12,15 +12,17 @@ public class Drink extends RealmObject {
     private String drink_name;
     private double price;
     private Bar bar;
+    private String type;
 
     public Drink() {
     }
 
-    public Drink(long id, String drink_name, double price, Bar bar) {
+    public Drink(long id, String drink_name, double price, Bar bar, String type) {
         this.id = id;
         this.drink_name = drink_name;
         this.price = price;
         this.bar = bar;
+        this.type = type;
     }
 
     public long getId() {
@@ -54,4 +56,9 @@ public class Drink extends RealmObject {
     public void setBar(Bar bar) {
         this.bar = bar;
     }
+
+    public String getType(){return type;}
+
+    public void setType(){this.type = type;}
+
 }
