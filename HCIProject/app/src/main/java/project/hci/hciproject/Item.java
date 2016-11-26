@@ -1,5 +1,8 @@
 package project.hci.hciproject;
 import java.util.ArrayList;
+
+import project.hci.hciproject.realm.Bar;
+
 /**
  * Created by nicholassaunderson on 17/11/2016.
  */
@@ -29,6 +32,7 @@ public class Item {
 
     public static ArrayList<String> createContactsList(int numItems) {
         ArrayList<String> bars = new ArrayList<String>();
+
 
         for (int i = 1; i <= numItems; i++) {
 

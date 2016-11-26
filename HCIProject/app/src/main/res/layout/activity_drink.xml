@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FilterActivity"
+    tools:context=".DrinkActivity"
     android:id="@+id/relativelayout1">
 
     <ImageView
