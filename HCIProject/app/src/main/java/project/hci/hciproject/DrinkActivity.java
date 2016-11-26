@@ -59,6 +59,7 @@ public class DrinkActivity extends AppCompatActivity {
         rvContacts.setAdapter(adapter);
         // Set layout manager to position the items
         rvContacts.setLayoutManager(new LinearLayoutManager(this));
+        rvContacts.getLayoutManager().scrollToPosition(7);
         // That's all!
 
         gyroscopeListener = new SensorEventListener() {

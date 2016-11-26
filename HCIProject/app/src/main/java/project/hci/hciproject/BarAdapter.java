@@ -1,6 +1,7 @@
 package project.hci.hciproject;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import project.hci.hciproject.realm.Bar;
 // Note that we specify the custom ViewHolder which gives us access to our views
 public class BarAdapter extends RecyclerView.Adapter<BarAdapter.ViewHolder> {
 
+    static int selectedPos;
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -73,9 +75,29 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.ViewHolder> {
 
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(BarAdapter.ViewHolder viewHolder, int position) {
-        // Get the data model based on position
+    public void onBindViewHolder(BarAdapter.ViewHolder viewHolder, final int position) {
+
+        viewHolder.itemView.setSelected(selectedPos == position);
+
         Bar contact = mItems.get(position);
+
+        if(selectedPos == position){
+            viewHolder.itemView.setBackgroundColor(Color.GREEN);
+        }else{
+            viewHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                notifyItemChanged(selectedPos);
+                selectedPos = position;
+                notifyItemChanged(selectedPos);
+
+
+            }
+        });
 
 
         // Set item views based on your views and data model

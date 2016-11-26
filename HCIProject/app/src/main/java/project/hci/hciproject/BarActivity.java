@@ -58,7 +58,9 @@ public class BarActivity extends AppCompatActivity {
         rvContacts.setAdapter(adapter);
         // Set layout manager to position the items
         rvContacts.setLayoutManager(new LinearLayoutManager(this));
-        // That's all!
+        rvContacts.getLayoutManager().scrollToPosition(7);
+        BarAdapter.selectedPos = 7;
+        adapter.notifyItemChanged(7);
 
         gyroscopeListener = new SensorEventListener() {
             @Override
