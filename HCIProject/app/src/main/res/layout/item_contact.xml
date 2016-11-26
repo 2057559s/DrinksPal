@@ -13,6 +13,7 @@
         android:layout_width="300dp"
         android:layout_height="40dp">
 
+
         <TextView
             android:id="@+id/item_name"
             android:textSize="24sp"
@@ -22,6 +23,8 @@
             android:textAlignment="center"
             android:layout_weight="4"/>
     </android.support.v7.widget.CardView>
+
+
 
 </RelativeLayout>
 
