@@ -81,9 +81,9 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.ViewHolder> {
 
         Bar contact = mItems.get(position);
 
-        if(selectedPos == position){
+        if (selectedPos == position){
             viewHolder.itemView.setBackgroundColor(Color.GREEN);
-        }else{
+        } else{
             viewHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
         }
 
