@@ -1,12 +1,8 @@
 package project.hci.hciproject;
 
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -47,10 +43,12 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Movement", "DOWN");
                     } else if (deltaRotationVector[1] > 0.3) {
                         Log.d("Movement", "RIGHT");
-                        //context.startActivity(new Intent());
+                        MainActivity.this.startActivity(
+                                new Intent(MainActivity.this, DrinkActivity.class));
                     } else if (deltaRotationVector[1] < -0.3) {
                         Log.d("Movement", "LEFT");
-                        //context.startActivity(new Intent());
+                        MainActivity.this.startActivity(
+                                new Intent(MainActivity.this, BarActivity.class));
                     }
                 }
                 timestamp = sensorEvent.timestamp;
