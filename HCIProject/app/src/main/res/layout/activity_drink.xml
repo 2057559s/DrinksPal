@@ -4,17 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DrinkActivity"
-    android:id="@+id/relativelayout1">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_next"/>
+    android:id="@+id/relativelayout1"
+    android:background="@color/background">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvItems"
         android:scrollbars="vertical"
-        android:layout_width="fill_parent"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent"/>
 
 
