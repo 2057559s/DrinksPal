@@ -77,23 +77,23 @@ public class BarActivity extends AppCompatActivity {
                             deltaRotationVector);
 
                     if (deltaRotationVector[0] > 0.4) {
-                        Log.d("Movement", "UP");
+                        // up
                         adapterPos -= 1;
                         BarAdapter.selectedPos = adapterPos;
                         rvContacts.getLayoutManager().scrollToPosition(adapterPos);
-                        adapter.notifyItemChanged(adapterPos);
+                        adapter.notifyItemRangeChanged(adapterPos+1, adapterPos);
                     } else if (deltaRotationVector[0] < -0.4) {
-                        Log.d("Movement", "DOWN");
+                        // down
                         adapterPos += 1;
                         BarAdapter.selectedPos = adapterPos;
                         rvContacts.getLayoutManager().scrollToPosition(adapterPos);
-                        adapter.notifyItemChanged(adapterPos);
+                        adapter.notifyItemRangeChanged(adapterPos-1, adapterPos);
                     } else if (deltaRotationVector[1] > 0.3) {
-                        Log.d("Movement", "RIGHT");
+                        // right
                         BarActivity.this.startActivity(
                                 new Intent(BarActivity.this, MainActivity.class));
                     } else if (deltaRotationVector[1] < -0.3) {
-                        Log.d("Movement", "LEFT");
+                        // left
                     }
                 }
                 timestamp = sensorEvent.timestamp;

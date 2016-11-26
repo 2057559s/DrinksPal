@@ -25,6 +25,7 @@ public class DrinkActivity extends AppCompatActivity {
 
     private ArrayList<Drink> items;
     private RecyclerView rvContacts;
+    private static DrinkAdapter adapter;
 
     private Realm realm;
 
@@ -34,6 +35,8 @@ public class DrinkActivity extends AppCompatActivity {
     private final float[] deltaRotationVector = new float[4];
 
     private SensorEventListener gyroscopeListener;
+
+    private int adapterPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +57,16 @@ public class DrinkActivity extends AppCompatActivity {
         }
         //items = realm.where(Bar.class).findAll();
         // Create adapter passing in the sample user data
-        DrinkAdapter adapter = new DrinkAdapter(this, items);
+        adapter = new DrinkAdapter(this, items);
         // Attach the adapter to the recyclerview to populate items
         rvContacts.setAdapter(adapter);
         // Set layout manager to position the items
         rvContacts.setLayoutManager(new LinearLayoutManager(this));
-        rvContacts.getLayoutManager().scrollToPosition(7);
-        DrinkAdapter.selectedPos = 7;
-        adapter.notifyItemChanged(7);
+
+        adapterPos = 7;
+        DrinkAdapter.selectedPos = adapterPos;
+        rvContacts.getLayoutManager().scrollToPosition(adapterPos);
+        adapter.notifyItemChanged(adapterPos);
 
         gyroscopeListener = new SensorEventListener() {
             @Override
@@ -72,14 +77,22 @@ public class DrinkActivity extends AppCompatActivity {
                             timestamp,
                             deltaRotationVector);
 
-                    if (deltaRotationVector[0] > 0.2) {
-                        Log.d("Movement", "UP");
-                    } else if (deltaRotationVector[0] < -0.2) {
-                        Log.d("Movement", "DOWN");
+                    if (deltaRotationVector[0] > 0.4) {
+                        // up
+                        adapterPos -= 1;
+                        BarAdapter.selectedPos = adapterPos;
+                        rvContacts.getLayoutManager().scrollToPosition(adapterPos);
+                        adapter.notifyItemRangeChanged(adapterPos+1, adapterPos);
+                    } else if (deltaRotationVector[0] < -0.4) {
+                        // down
+                        adapterPos += 1;
+                        BarAdapter.selectedPos = adapterPos;
+                        rvContacts.getLayoutManager().scrollToPosition(adapterPos);
+                        adapter.notifyItemRangeChanged(adapterPos-1, adapterPos);
                     } else if (deltaRotationVector[1] > 0.3) {
-                        Log.d("Movement", "RIGHT");
+                        // right
                     } else if (deltaRotationVector[1] < -0.3) {
-                        Log.d("Movement", "LEFT");
+                        // left
                         DrinkActivity.this.startActivity(
                                 new Intent(DrinkActivity.this, MainActivity.class));
                     }
