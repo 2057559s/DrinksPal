@@ -80,13 +80,13 @@ public class DrinkActivity extends AppCompatActivity {
                     if (deltaRotationVector[0] > 0.4) {
                         // up
                         adapterPos -= 1;
-                        BarAdapter.selectedPos = adapterPos;
+                        DrinkAdapter.selectedPos = adapterPos;
                         rvContacts.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemRangeChanged(adapterPos+1, adapterPos);
                     } else if (deltaRotationVector[0] < -0.4) {
                         // down
                         adapterPos += 1;
-                        BarAdapter.selectedPos = adapterPos;
+                        DrinkAdapter.selectedPos = adapterPos;
                         rvContacts.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemRangeChanged(adapterPos-1, adapterPos);
                     } else if (deltaRotationVector[1] > 0.3) {
