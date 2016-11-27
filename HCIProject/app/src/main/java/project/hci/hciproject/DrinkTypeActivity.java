@@ -101,7 +101,9 @@ public class DrinkTypeActivity extends AppCompatActivity {
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
                     } else if (deltaRotationVector[1] > 0.3) {
-                        // right
+                        Log.d("Movement", "RIGHT");
+                        DrinkTypeActivity.this.startActivity(
+                                new Intent(DrinkTypeActivity.this, PriceRangeActivity.class));
                     } else if (deltaRotationVector[1] < -0.3) {
                         // left
                         DrinkTypeActivity.this.startActivity(

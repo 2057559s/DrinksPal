@@ -17,16 +17,14 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import project.hci.hciproject.realm.Bar;
+import project.hci.hciproject.util.DrinkType;
 import project.hci.hciproject.util.GyroSensorLogic;
 
+public class DrinkTypeBarsActivity extends AppCompatActivity {
 
-public class BarActivity extends AppCompatActivity {
-
-
-    private ArrayList<Bar> items;
+    private ArrayList<DrinkType> items;
     private RecyclerView rvContacts;
-    private static BarAdapter adapter;
+    private static DrinkTypeBarsAdapter adapter;
 
     private Realm realm;
 
@@ -42,32 +40,32 @@ public class BarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bar);
+        setContentView(R.layout.activity_drink_type_bars);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        realm = Realm.getDefaultInstance();
         items = new ArrayList<>();
+        realm = Realm.getDefaultInstance();
         // ...
         // Lookup the recyclerview in activity layout
         rvContacts = (RecyclerView) findViewById(R.id.rvItems);
 
         // Initialize contacts
-        RealmResults<Bar> results = realm.where(Bar.class).findAll();
+        RealmResults<DrinkType> results = realm.where(DrinkType.class).findAll();
 
-        for (Bar bar : results) {
-            items.add(bar);
+        for (DrinkType drink : results) {
+            items.add(drink);
         }
         //items = realm.where(Bar.class).findAll();
         // Create adapter passing in the sample user data
-        adapter = new BarAdapter(this, items);
+        adapter = new DrinkTypeBarsAdapter(this, items);
         // Attach the adapter to the recyclerview to populate items
         rvContacts.setAdapter(adapter);
         // Set layout manager to position the items
         rvContacts.setLayoutManager(new LinearLayoutManager(this));
 
         adapterPos = (int) Math.floor(items.size() / 2);
-        BarAdapter.selectedPos = adapterPos;
+        DrinkTypeBarsAdapter.selectedPos = adapterPos;
         rvContacts.getLayoutManager().scrollToPosition(adapterPos);
         adapter.notifyItemChanged(adapterPos);
 
@@ -87,7 +85,7 @@ public class BarActivity extends AppCompatActivity {
                         if (adapterPos < 0) {
                             adapterPos = items.size()-1;
                         }
-                        BarAdapter.selectedPos = adapterPos;
+                        DrinkTypeBarsAdapter.selectedPos = adapterPos;
                         rvContacts.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
@@ -98,17 +96,18 @@ public class BarActivity extends AppCompatActivity {
                         if (adapterPos == items.size()) {
                             adapterPos = 0;
                         }
-                        BarAdapter.selectedPos = adapterPos;
+                        DrinkTypeBarsAdapter.selectedPos = adapterPos;
                         rvContacts.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
                     } else if (deltaRotationVector[1] > 0.3) {
-                        // right
-                        BarActivity.this.startActivity(
-                                new Intent(BarActivity.this, MainActivity.class));
+                        Log.d("Movement", "RIGHT");
+                        DrinkTypeBarsActivity.this.startActivity(
+                                new Intent(DrinkTypeBarsActivity.this, BarActivity.class));
                     } else if (deltaRotationVector[1] < -0.3) {
-                        BarActivity.this.startActivity(
-                                new Intent(BarActivity.this, DrinkTypeBarsActivity.class));
+                        // left
+                        DrinkTypeBarsActivity.this.startActivity(
+                                new Intent(DrinkTypeBarsActivity.this, MainActivity.class));
                     }
                 }
                 timestamp = sensorEvent.timestamp;
@@ -146,5 +145,6 @@ public class BarActivity extends AppCompatActivity {
         super.onStop();
         realm.close();
     }
-}
 
+
+}

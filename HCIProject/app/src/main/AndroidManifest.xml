@@ -30,7 +30,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".PriceRangeActivity" />
         <activity android:name=".add_new_drink" />
-        <activity android:name=".DrinkTypeActivity"></activity>
+        <activity android:name=".DrinkTypeActivity" />
+        <activity android:name=".DrinkTypeBarsActivity"></activity>
     </application>
 
 </manifest>
