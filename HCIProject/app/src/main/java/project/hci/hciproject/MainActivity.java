@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     } else if (deltaRotationVector[1] > 0.3) {
                         Log.d("Movement", "RIGHT");
                         MainActivity.this.startActivity(
-                                new Intent(MainActivity.this, DrinkActivity.class));
+                                new Intent(MainActivity.this, DrinkTypeActivity.class));
                     } else if (deltaRotationVector[1] < -0.3) {
                         Log.d("Movement", "LEFT");
                         MainActivity.this.startActivity(
