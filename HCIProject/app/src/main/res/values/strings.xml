@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">DrinksPal</string>
-    <string name="left_right">Tilt Left or Right</string>
-    <string name="first_message">Shake for something wild!!!</string>
+    <string name="left_right">TILT LEFT FOR BARS\n RIGHT FOR DRINKS</string>
+    <string name="first_message">SHAKE FOR SOMETHING\nWILD!</string>
 </resources>
