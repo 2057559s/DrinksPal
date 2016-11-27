@@ -103,8 +103,8 @@ public class PriceRangeActivity extends AppCompatActivity {
                         // right
                     } else if (deltaRotationVector[1] < -0.3) {
                         // left
-                        PriceRangeActivity.this.startActivity(
-                                new Intent(PriceRangeActivity.this, MainActivity.class));
+//                        PriceRangeActivity.this.startActivity(
+//                                new Intent(PriceRangeActivity.this, MainActivity.class));
                     }
                 }
                 timestamp = sensorEvent.timestamp;

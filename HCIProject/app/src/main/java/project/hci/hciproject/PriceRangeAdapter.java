@@ -48,10 +48,11 @@ public class PriceRangeAdapter extends RecyclerView.Adapter<PriceRangeAdapter.Vi
     private Context mContext;
 
     // Pass in the contact array into the constructor
+
     public PriceRangeAdapter(Context context, List<Double> items) {
         mItems = items;
         mContext = context;
-    }
+    };
 
     // Easy access to the context object in the recyclerview
     private Context getContext() {
