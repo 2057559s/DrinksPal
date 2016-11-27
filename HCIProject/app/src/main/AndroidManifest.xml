@@ -28,7 +28,10 @@
         <activity
             android:name=".DrinkActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".PriceRangeAdapter"></activity>
+        <activity android:name=".PriceRangeAdapter" />
+        <activity android:name=".util.PriceRangeActivity" />
+        <activity android:name=".util.PriceRangeAdapter" />
+        <activity android:name=".PriceRangeActivity"></activity>
     </application>
 
 </manifest>

@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import project.hci.hciproject.realm.Drink;
-
 /**
  * Created by nicholassaunderson on 17/11/2016.
  */
@@ -45,12 +43,12 @@ public class PriceRangeAdapter extends RecyclerView.Adapter<PriceRangeAdapter.Vi
 
 
     // Store a member variable for the contacts
-    private List<Drink> mItems;
+    private List<Double> mItems;
     // Store the context for easy access
     private Context mContext;
 
     // Pass in the contact array into the constructor
-    public DrinkAdapter(Context context, List<Drink> items) {
+    public PriceRangeAdapter(Context context, List<Double> items) {
         mItems = items;
         mContext = context;
     }
@@ -62,7 +60,7 @@ public class PriceRangeAdapter extends RecyclerView.Adapter<PriceRangeAdapter.Vi
 
     // Usually involves inflating a layout from XML and returning the holder
     @Override
-    public DrinkAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PriceRangeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -76,11 +74,11 @@ public class PriceRangeAdapter extends RecyclerView.Adapter<PriceRangeAdapter.Vi
 
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(DrinkAdapter.ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(PriceRangeAdapter.ViewHolder viewHolder, final int position) {
 
         viewHolder.itemView.setSelected(selectedPos == position);
 
-        Drink contact = mItems.get(position);
+        //Double contact = mItems.get(position);
 
         if(selectedPos == position){
             viewHolder.itemView.setBackgroundColor(Color.GREEN);
@@ -101,8 +99,8 @@ public class PriceRangeAdapter extends RecyclerView.Adapter<PriceRangeAdapter.Vi
 
 
         // Set item views based on your views and data model
-        TextView textView = viewHolder.nameTextView;
-        textView.setText(contact.getDrink_name());
+        //TextView textView = viewHolder.nameTextView;
+        //textView.setText(contact);
 
     }
 
