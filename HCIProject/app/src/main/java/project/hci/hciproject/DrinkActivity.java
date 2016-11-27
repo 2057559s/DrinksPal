@@ -45,7 +45,7 @@ public class DrinkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_drink);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        
+
         realm = Realm.getDefaultInstance();
         items = new ArrayList<>();
         // ...
