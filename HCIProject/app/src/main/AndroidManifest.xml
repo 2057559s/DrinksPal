@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".BarActivity"/>
         <activity android:name=".DrinkActivity"/>
+        <activity android:name=".add_new_drink"></activity>
     </application>
 
 </manifest>
