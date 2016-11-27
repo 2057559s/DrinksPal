@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.WindowManager;
+
 import java.util.ArrayList;
 
 import io.realm.Realm;
@@ -40,8 +42,10 @@ public class BarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_bar);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         realm = Realm.getDefaultInstance();
         items = new ArrayList<>();
         // ...
@@ -62,7 +66,7 @@ public class BarActivity extends AppCompatActivity {
         // Set layout manager to position the items
         rvContacts.setLayoutManager(new LinearLayoutManager(this));
 
-        adapterPos = 7;
+        adapterPos = (int) Math.floor(items.size() / 2);
         BarAdapter.selectedPos = adapterPos;
         rvContacts.getLayoutManager().scrollToPosition(adapterPos);
         adapter.notifyItemChanged(adapterPos);
@@ -78,16 +82,26 @@ public class BarActivity extends AppCompatActivity {
 
                     if (deltaRotationVector[0] > 0.4) {
                         // up
+                        int oldPos = adapterPos;
                         adapterPos -= 1;
+                        if (adapterPos < 0) {
+                            adapterPos = items.size()-1;
+                        }
                         BarAdapter.selectedPos = adapterPos;
                         rvContacts.getLayoutManager().scrollToPosition(adapterPos);
-                        adapter.notifyItemRangeChanged(adapterPos+1, adapterPos);
+                        adapter.notifyItemChanged(oldPos);
+                        adapter.notifyItemChanged(adapterPos);
                     } else if (deltaRotationVector[0] < -0.4) {
                         // down
+                        int oldPos = adapterPos;
                         adapterPos += 1;
+                        if (adapterPos == items.size()) {
+                            adapterPos = 0;
+                        }
                         BarAdapter.selectedPos = adapterPos;
                         rvContacts.getLayoutManager().scrollToPosition(adapterPos);
-                        adapter.notifyItemRangeChanged(adapterPos-1, adapterPos);
+                        adapter.notifyItemChanged(oldPos);
+                        adapter.notifyItemChanged(adapterPos);
                     } else if (deltaRotationVector[1] > 0.3) {
                         // right
                         BarActivity.this.startActivity(
