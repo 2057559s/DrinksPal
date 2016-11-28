@@ -104,6 +104,7 @@ public class BarActivity extends AppCompatActivity {
                         adapter.notifyItemChanged(adapterPos);
                     } else if (deltaRotationVector[1] > 0.3) {
                         // right
+
                         BarActivity.this.startActivity(
                                 new Intent(BarActivity.this, MainActivity.class));
                     } else if (deltaRotationVector[1] < -0.3) {

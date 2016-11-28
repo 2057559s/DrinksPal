@@ -107,7 +107,7 @@ public class DrinkTypeBarsActivity extends AppCompatActivity {
                     } else if (deltaRotationVector[1] < -0.3) {
                         // left
                         DrinkTypeBarsActivity.this.startActivity(
-                                new Intent(DrinkTypeBarsActivity.this, MainActivity.class));
+                                new Intent(DrinkTypeBarsActivity.this, list_drinks_add.class));
                     }
                 }
                 timestamp = sensorEvent.timestamp;
