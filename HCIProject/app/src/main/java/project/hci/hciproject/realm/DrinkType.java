@@ -1,4 +1,4 @@
-package project.hci.hciproject.util;
+package project.hci.hciproject.realm;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

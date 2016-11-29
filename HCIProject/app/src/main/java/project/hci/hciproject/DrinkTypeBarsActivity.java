@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import project.hci.hciproject.util.DrinkType;
+import project.hci.hciproject.realm.DrinkType;
 import project.hci.hciproject.util.GyroSensorLogic;
 
 public class DrinkTypeBarsActivity extends AppCompatActivity {
@@ -106,8 +106,6 @@ public class DrinkTypeBarsActivity extends AppCompatActivity {
                                 new Intent(DrinkTypeBarsActivity.this, BarActivity.class));
                     } else if (deltaRotationVector[1] < -0.3) {
                         // left
-                        DrinkTypeBarsActivity.this.startActivity(
-                                new Intent(DrinkTypeBarsActivity.this, MainActivity.class));
                     }
                 }
                 timestamp = sensorEvent.timestamp;

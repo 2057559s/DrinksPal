@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import project.hci.hciproject.util.DrinkType;
+import project.hci.hciproject.realm.DrinkType;
 
 /**
  * Created by thevj on 27/11/16.

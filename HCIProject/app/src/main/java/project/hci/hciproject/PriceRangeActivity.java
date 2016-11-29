@@ -46,6 +46,8 @@ public class PriceRangeActivity extends AppCompatActivity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        realm = Realm.getDefaultInstance();
+
         items = new ArrayList<>();
         // ...
         // Lookup the recyclerview in activity layout
@@ -102,11 +104,13 @@ public class PriceRangeActivity extends AppCompatActivity {
                     } else if (deltaRotationVector[1] > 0.3) {
                         // right
                         Double price = items.get(adapterPos); // commit price to shared preferences
+                        PriceRangeActivity.this.startActivity(
+                                new Intent(PriceRangeActivity.this, BarResultsActivity.class));
                         // launch next screen
                     } else if (deltaRotationVector[1] < -0.3) {
                         // left
                         PriceRangeActivity.this.startActivity(
-                                new Intent(PriceRangeActivity.this, MainActivity.class));
+                                new Intent(PriceRangeActivity.this, DrinkTypeActivity.class));
                     }
                 }
                 timestamp = sensorEvent.timestamp;
