@@ -21,7 +21,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import project.hci.hciproject.realm.Bar;
 import project.hci.hciproject.realm.Drink;
-import project.hci.hciproject.util.DrinkType;
+import project.hci.hciproject.realm.DrinkType;
 import project.hci.hciproject.util.GyroSensorLogic;
 
 

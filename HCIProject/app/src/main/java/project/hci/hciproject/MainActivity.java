@@ -36,8 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SensorEventListener gyroscopeListener;
 
-    private SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME,
-            Context.MODE_PRIVATE);
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        sharedPreferences  = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 
         sharedPreferences.edit().clear().apply();
 

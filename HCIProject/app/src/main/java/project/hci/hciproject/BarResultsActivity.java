@@ -2,6 +2,7 @@ package project.hci.hciproject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -17,7 +18,10 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import io.realm.RealmResults;
 import project.hci.hciproject.realm.Bar;
+import project.hci.hciproject.realm.Drink;
+import project.hci.hciproject.realm.DrinkType;
 import project.hci.hciproject.util.GyroSensorLogic;
 
 public class BarResultsActivity extends AppCompatActivity {
@@ -39,6 +43,8 @@ public class BarResultsActivity extends AppCompatActivity {
 
     private int adapterPos;
 
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +54,25 @@ public class BarResultsActivity extends AppCompatActivity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        sharedPreferences = getSharedPreferences(MainActivity.PREF_NAME, Context.MODE_PRIVATE);
+
         realm = Realm.getDefaultInstance();
         items = new ArrayList<>();
+
+        RealmResults<DrinkType> type = realm.where(DrinkType.class)
+                .equalTo("type", sharedPreferences.getString(DrinkTypeActivity.TYPE, null))
+                .findAll();
+
+        RealmResults<Drink> drinks = realm.where(Drink.class)
+                .lessThanOrEqualTo("price",
+                        (double) sharedPreferences.getFloat(PriceRangeActivity.PRICE, 0))
+                .findAll();
+
+        drinks = drinks.where().equalTo("type.type", type.get(0).getDrinkType()).findAll();
+
+        for (Drink drink : drinks) {
+            items.add(drink.getBar());
+        }
 
         adapter = new BarResultsAdapter(this, items);
         // Attach the adapter to the recyclerview to populate items
