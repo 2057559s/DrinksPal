@@ -3,6 +3,7 @@ package project.hci.hciproject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -23,6 +24,8 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String PREF_NAME = "HCI_APP";
+
     @BindView(R.id.mainBackground)
     protected ImageView background;
 
@@ -33,12 +36,17 @@ public class MainActivity extends AppCompatActivity {
 
     private SensorEventListener gyroscopeListener;
 
+    private SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME,
+            Context.MODE_PRIVATE);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        sharedPreferences.edit().clear().apply();
 
         gyroscopeListener = new SensorEventListener() {
             @Override

@@ -2,6 +2,7 @@ package project.hci.hciproject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -23,6 +24,8 @@ import project.hci.hciproject.util.GyroSensorLogic;
 
 public class BarActivity extends AppCompatActivity {
 
+    public static String BAR_NAME = "bar_name";
+
 
     private ArrayList<Bar> items;
     private RecyclerView rvContacts;
@@ -39,12 +42,17 @@ public class BarActivity extends AppCompatActivity {
 
     private int adapterPos;
 
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bar);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        sharedPreferences = getSharedPreferences(MainActivity.PREF_NAME,
+                Context.MODE_PRIVATE);
 
         realm = Realm.getDefaultInstance();
         items = new ArrayList<>();
@@ -108,6 +116,8 @@ public class BarActivity extends AppCompatActivity {
                         BarActivity.this.startActivity(
                                 new Intent(BarActivity.this, MainActivity.class));
                     } else if (deltaRotationVector[1] < -0.3) {
+                        sharedPreferences.edit()
+                                .putString(BAR_NAME, items.get(adapterPos).getBar_name()).apply();
                         BarActivity.this.startActivity(
                                 new Intent(BarActivity.this, DrinkTypeBarsActivity.class));
                     }
