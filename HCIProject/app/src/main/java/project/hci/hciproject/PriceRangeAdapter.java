@@ -79,7 +79,7 @@ public class PriceRangeAdapter extends RecyclerView.Adapter<PriceRangeAdapter.Vi
 
         viewHolder.itemView.setSelected(selectedPos == position);
 
-        //Double contact = mItems.get(position);
+        Double contact = mItems.get(position);
 
         if(selectedPos == position){
             viewHolder.itemView.setBackgroundColor(Color.GREEN);
@@ -100,8 +100,9 @@ public class PriceRangeAdapter extends RecyclerView.Adapter<PriceRangeAdapter.Vi
 
 
         // Set item views based on your views and data model
-        //TextView textView = viewHolder.nameTextView;
-        //textView.setText(contact);
+        String displayedPrice = "£<" + String.valueOf(contact);
+        TextView textView = viewHolder.nameTextView;
+        textView.setText(displayedPrice);
 
     }
 

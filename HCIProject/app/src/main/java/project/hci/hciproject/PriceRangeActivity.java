@@ -101,10 +101,12 @@ public class PriceRangeActivity extends AppCompatActivity {
                         adapter.notifyItemChanged(adapterPos);
                     } else if (deltaRotationVector[1] > 0.3) {
                         // right
+                        Double price = items.get(adapterPos); // commit price to shared preferences
+                        // launch next screen
                     } else if (deltaRotationVector[1] < -0.3) {
                         // left
-//                        PriceRangeActivity.this.startActivity(
-//                                new Intent(PriceRangeActivity.this, MainActivity.class));
+                        PriceRangeActivity.this.startActivity(
+                                new Intent(PriceRangeActivity.this, MainActivity.class));
                     }
                 }
                 timestamp = sensorEvent.timestamp;
