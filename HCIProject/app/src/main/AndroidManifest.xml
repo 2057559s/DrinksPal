@@ -33,6 +33,7 @@
         <activity android:name=".DrinkTypeActivity" />
         <activity android:name=".DrinkTypeBarsActivity"/>
         <activity android:name=".BarResultsActivity"/>
+        <activity android:name=".ListDrinkResultsActivity" />
     </application>
 
 </manifest>
