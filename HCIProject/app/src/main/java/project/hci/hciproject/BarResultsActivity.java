@@ -14,6 +14,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,8 +73,17 @@ public class BarResultsActivity extends AppCompatActivity {
 
         drinks = drinks.where().equalTo("type.type", type.get(0).getDrinkType()).findAll();
 
+        Map<String, Bar> bars = new HashMap<>();
+
         for (Drink drink : drinks) {
-            items.add(drink.getBar());
+            if (!bars.containsKey(drink.getBar().getBar_name())) {
+                bars.put(drink.getBar().getBar_name(), drink.getBar());
+            }
+        }
+
+        for (Object o : bars.entrySet()) {
+            Map.Entry pair = (Map.Entry) o;
+            items.add((Bar) pair.getValue());
         }
 
         adapter = new BarResultsAdapter(this, items);
