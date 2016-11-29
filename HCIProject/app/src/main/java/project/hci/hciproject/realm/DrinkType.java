@@ -1,4 +1,4 @@
-package project.hci.hciproject.util;
+package project.hci.hciproject.realm;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -22,11 +22,11 @@ public class DrinkType extends RealmObject {
         this.drinkid = drinkid;
     }
 
-    public String getId() {
+    public String getDrinkType() {
         return type;
     }
 
-    public void setId(String type) {
+    public void setDrinkType(String type) {
         this.type = type;
     }
 

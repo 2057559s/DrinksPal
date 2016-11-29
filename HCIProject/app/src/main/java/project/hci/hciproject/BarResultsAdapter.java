@@ -13,14 +13,13 @@ import java.util.List;
 import project.hci.hciproject.realm.Bar;
 
 /**
- * Created by nicholassaunderson on 17/11/2016.
+ * Created by jake on 11/29/16.
  */
 
-// Create the basic adapter extending from RecyclerView.Adapter
-// Note that we specify the custom ViewHolder which gives us access to our views
-public class BarAdapter extends RecyclerView.Adapter<BarAdapter.ViewHolder> {
+public class BarResultsAdapter extends RecyclerView.Adapter<BarResultsAdapter.ViewHolder> {
 
     static int selectedPos;
+
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -40,19 +39,17 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.ViewHolder> {
         }
     }
 
-
-
-
     // Store a member variable for the contacts
     private List<Bar> mItems;
     // Store the context for easy access
     private Context mContext;
 
     // Pass in the contact array into the constructor
-    public BarAdapter(Context context, List<Bar> items) {
+
+    public BarResultsAdapter(Context context, List<Bar> items) {
         mItems = items;
         mContext = context;
-    }
+    };
 
     // Easy access to the context object in the recyclerview
     private Context getContext() {
@@ -61,7 +58,7 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.ViewHolder> {
 
     // Usually involves inflating a layout from XML and returning the holder
     @Override
-    public BarAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BarResultsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -69,21 +66,21 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.ViewHolder> {
         View contactView = inflater.inflate(R.layout.item_contact, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView);
+        BarResultsAdapter.ViewHolder viewHolder = new BarResultsAdapter.ViewHolder(contactView);
         return viewHolder;
     }
 
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(BarAdapter.ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(BarResultsAdapter.ViewHolder viewHolder, final int position) {
 
         viewHolder.itemView.setSelected(selectedPos == position);
 
         Bar contact = mItems.get(position);
 
-        if (selectedPos == position){
+        if(selectedPos == position){
             viewHolder.itemView.setBackgroundColor(Color.GREEN);
-        } else{
+        }else{
             viewHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
         }
 
@@ -94,7 +91,6 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.ViewHolder> {
                 notifyItemChanged(selectedPos);
                 selectedPos = position;
                 notifyItemChanged(selectedPos);
-
 
             }
         });
@@ -112,5 +108,3 @@ public class BarAdapter extends RecyclerView.Adapter<BarAdapter.ViewHolder> {
         return mItems.size();
     }
 }
-
-

@@ -6,6 +6,7 @@ import java.util.List;
 import io.realm.Realm;
 import project.hci.hciproject.realm.Bar;
 import project.hci.hciproject.realm.Drink;
+import project.hci.hciproject.realm.DrinkType;
 
 /**
  * @author jake degiovanni

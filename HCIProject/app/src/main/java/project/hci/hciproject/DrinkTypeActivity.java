@@ -17,16 +17,14 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import project.hci.hciproject.realm.Drink;
+import project.hci.hciproject.realm.DrinkType;
 import project.hci.hciproject.util.GyroSensorLogic;
 
+public class DrinkTypeActivity extends AppCompatActivity {
 
-public class DrinkActivity extends AppCompatActivity {
-
-
-    private ArrayList<Drink> items;
+    private ArrayList<DrinkType> items;
     private RecyclerView rvContacts;
-    private static DrinkAdapter adapter;
+    private static DrinkTypeAdapter adapter;
 
     private Realm realm;
 
@@ -42,32 +40,32 @@ public class DrinkActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drink);
+        setContentView(R.layout.activity_drink_type);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        realm = Realm.getDefaultInstance();
         items = new ArrayList<>();
+        realm = Realm.getDefaultInstance();
         // ...
         // Lookup the recyclerview in activity layout
         rvContacts = (RecyclerView) findViewById(R.id.rvItems);
 
         // Initialize contacts
-        RealmResults<Drink> results = realm.where(Drink.class).findAll();
+        RealmResults<DrinkType> results = realm.where(DrinkType.class).findAll();
 
-        for (Drink drink : results) {
+        for (DrinkType drink : results) {
             items.add(drink);
         }
         //items = realm.where(Bar.class).findAll();
         // Create adapter passing in the sample user data
-        adapter = new DrinkAdapter(this, items);
+        adapter = new DrinkTypeAdapter(this, items);
         // Attach the adapter to the recyclerview to populate items
         rvContacts.setAdapter(adapter);
         // Set layout manager to position the items
         rvContacts.setLayoutManager(new LinearLayoutManager(this));
 
         adapterPos = (int) Math.floor(items.size() / 2);
-        DrinkAdapter.selectedPos = adapterPos;
+        PriceRangeAdapter.selectedPos = adapterPos;
         rvContacts.getLayoutManager().scrollToPosition(adapterPos);
         adapter.notifyItemChanged(adapterPos);
 
@@ -87,7 +85,7 @@ public class DrinkActivity extends AppCompatActivity {
                         if (adapterPos < 0) {
                             adapterPos = items.size()-1;
                         }
-                        DrinkAdapter.selectedPos = adapterPos;
+                        DrinkTypeAdapter.selectedPos = adapterPos;
                         rvContacts.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
@@ -98,16 +96,18 @@ public class DrinkActivity extends AppCompatActivity {
                         if (adapterPos == items.size()) {
                             adapterPos = 0;
                         }
-                        DrinkAdapter.selectedPos = adapterPos;
+                        DrinkTypeAdapter.selectedPos = adapterPos;
                         rvContacts.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
                     } else if (deltaRotationVector[1] > 0.3) {
-                        // right
+                        Log.d("Movement", "RIGHT");
+                        DrinkTypeActivity.this.startActivity(
+                                new Intent(DrinkTypeActivity.this, PriceRangeActivity.class));
                     } else if (deltaRotationVector[1] < -0.3) {
                         // left
-                        DrinkActivity.this.startActivity(
-                                new Intent(DrinkActivity.this, MainActivity.class));
+                        DrinkTypeActivity.this.startActivity(
+                                new Intent(DrinkTypeActivity.this, MainActivity.class));
                     }
                 }
                 timestamp = sensorEvent.timestamp;
@@ -146,4 +146,3 @@ public class DrinkActivity extends AppCompatActivity {
         realm.close();
     }
 }
-
