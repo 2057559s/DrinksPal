@@ -2,6 +2,7 @@ package project.hci.hciproject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -23,10 +24,11 @@ import project.hci.hciproject.util.GyroSensorLogic;
 
 public class PriceRangeActivity extends AppCompatActivity {
 
+    public static String PRICE = "price";
 
     private ArrayList<Double> items;
     private RecyclerView rvContacts;
-    private static PriceRangeAdapter adapter;
+    private PriceRangeAdapter adapter;
 
     private Realm realm;
 
@@ -39,12 +41,16 @@ public class PriceRangeActivity extends AppCompatActivity {
 
     private int adapterPos;
 
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_price_range);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        sharedPreferences = getSharedPreferences(MainActivity.PREF_NAME, Context.MODE_PRIVATE);
 
         realm = Realm.getDefaultInstance();
 
@@ -79,7 +85,7 @@ public class PriceRangeActivity extends AppCompatActivity {
                             timestamp,
                             deltaRotationVector);
 
-                    if (deltaRotationVector[0] > 0.4) {
+                    if (deltaRotationVector[0] > 0.3) {
                         // up
                         int oldPos = adapterPos;
                         adapterPos -= 1;
@@ -90,7 +96,7 @@ public class PriceRangeActivity extends AppCompatActivity {
                         rvContacts.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
-                    } else if (deltaRotationVector[0] < -0.4) {
+                    } else if (deltaRotationVector[0] < -0.3) {
                         // down
                         int oldPos = adapterPos;
                         adapterPos += 1;
@@ -103,7 +109,8 @@ public class PriceRangeActivity extends AppCompatActivity {
                         adapter.notifyItemChanged(adapterPos);
                     } else if (deltaRotationVector[1] > 0.3) {
                         // right
-                        Double price = items.get(adapterPos); // commit price to shared preferences
+                        double price = items.get(adapterPos); // commit price to shared preferences
+                        sharedPreferences.edit().putFloat(PRICE, (float) price).apply();
                         PriceRangeActivity.this.startActivity(
                                 new Intent(PriceRangeActivity.this, BarResultsActivity.class));
                         // launch next screen

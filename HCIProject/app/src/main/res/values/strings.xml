@@ -3,6 +3,14 @@
     <string name="left_right">TILT LEFT FOR BARS\n RIGHT FOR DRINKS</string>
     <string name="first_message">SHAKE FOR RANDOM\nBAR!</string>
     <string name="main_background_img">Beer Photo</string>
+
+    <!-- Titles -->
+    <string name="price_range_title">Price Range</string>
+    <string name="drink_type_title">Drink Type</string>
+    <string name="bars_title">Bars Close By</string>
+    <string name="bars_results_title">Bars In Price Range</string>
+    <string name="drink_results_title">Drinks Results</string>
+
     <string-array name="drinks_type">
         <item>Spirit</item>
         <item>Wine</item>

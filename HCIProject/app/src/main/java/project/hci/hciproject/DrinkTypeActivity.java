@@ -2,15 +2,15 @@ package project.hci.hciproject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
@@ -22,9 +22,11 @@ import project.hci.hciproject.util.GyroSensorLogic;
 
 public class DrinkTypeActivity extends AppCompatActivity {
 
+    public static String TYPE = "type";
+
     private ArrayList<DrinkType> items;
     private RecyclerView rvContacts;
-    private static DrinkTypeAdapter adapter;
+    private DrinkTypeAdapter adapter;
 
     private Realm realm;
 
@@ -37,12 +39,16 @@ public class DrinkTypeActivity extends AppCompatActivity {
 
     private int adapterPos;
 
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink_type);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        sharedPreferences = getSharedPreferences(MainActivity.PREF_NAME, Context.MODE_PRIVATE);
 
         items = new ArrayList<>();
         realm = Realm.getDefaultInstance();
@@ -78,7 +84,7 @@ public class DrinkTypeActivity extends AppCompatActivity {
                             timestamp,
                             deltaRotationVector);
 
-                    if (deltaRotationVector[0] > 0.4) {
+                    if (deltaRotationVector[0] > 0.3) {
                         // up
                         int oldPos = adapterPos;
                         adapterPos -= 1;
@@ -89,7 +95,7 @@ public class DrinkTypeActivity extends AppCompatActivity {
                         rvContacts.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
-                    } else if (deltaRotationVector[0] < -0.4) {
+                    } else if (deltaRotationVector[0] < -0.3) {
                         // down
                         int oldPos = adapterPos;
                         adapterPos += 1;
@@ -101,7 +107,9 @@ public class DrinkTypeActivity extends AppCompatActivity {
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
                     } else if (deltaRotationVector[1] > 0.3) {
-                        Log.d("Movement", "RIGHT");
+                        // right
+                        sharedPreferences.edit()
+                                .putString(TYPE, items.get(adapterPos).getDrinkType()).apply();
                         DrinkTypeActivity.this.startActivity(
                                 new Intent(DrinkTypeActivity.this, PriceRangeActivity.class));
                     } else if (deltaRotationVector[1] < -0.3) {

@@ -10,13 +10,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import project.hci.hciproject.realm.Bar;
+import project.hci.hciproject.realm.Drink;
 
 /**
  * Created by jake on 11/29/16.
  */
 
-public class BarResultsAdapter extends RecyclerView.Adapter<BarResultsAdapter.ViewHolder> {
+public class ListDrinksAdapter extends RecyclerView.Adapter<ListDrinksAdapter.ViewHolder> {
 
     static int selectedPos;
 
@@ -40,13 +40,13 @@ public class BarResultsAdapter extends RecyclerView.Adapter<BarResultsAdapter.Vi
     }
 
     // Store a member variable for the contacts
-    private List<Bar> mItems;
+    private List<Drink> mItems;
     // Store the context for easy access
     private Context mContext;
 
     // Pass in the contact array into the constructor
 
-    public BarResultsAdapter(Context context, List<Bar> items) {
+    public ListDrinksAdapter(Context context, List<Drink> items) {
         mItems = items;
         mContext = context;
     };
@@ -58,7 +58,7 @@ public class BarResultsAdapter extends RecyclerView.Adapter<BarResultsAdapter.Vi
 
     // Usually involves inflating a layout from XML and returning the holder
     @Override
-    public BarResultsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ListDrinksAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -66,17 +66,17 @@ public class BarResultsAdapter extends RecyclerView.Adapter<BarResultsAdapter.Vi
         View contactView = inflater.inflate(R.layout.item_contact, parent, false);
 
         // Return a new holder instance
-        BarResultsAdapter.ViewHolder viewHolder = new BarResultsAdapter.ViewHolder(contactView);
+        ListDrinksAdapter.ViewHolder viewHolder = new ListDrinksAdapter.ViewHolder(contactView);
         return viewHolder;
     }
 
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(BarResultsAdapter.ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(ListDrinksAdapter.ViewHolder viewHolder, final int position) {
 
         viewHolder.itemView.setSelected(selectedPos == position);
 
-        Bar contact = mItems.get(position);
+        Drink contact = mItems.get(position);
 
         viewHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
 
@@ -93,8 +93,9 @@ public class BarResultsAdapter extends RecyclerView.Adapter<BarResultsAdapter.Vi
 
 
         // Set item views based on your views and data model
+        String result = contact.getDrink_name() + "   £"+ String.valueOf(contact.getPrice());
         TextView textView = viewHolder.nameTextView;
-        textView.setText(contact.getBar_name());
+        textView.setText(result);
 
     }
 

@@ -2,6 +2,7 @@ package project.hci.hciproject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -22,6 +23,8 @@ import project.hci.hciproject.util.GyroSensorLogic;
 
 public class DrinkTypeBarsActivity extends AppCompatActivity {
 
+    public static String DRINK_TYPE = "type";
+
     private ArrayList<DrinkType> items;
     private RecyclerView rvContacts;
     private static DrinkTypeBarsAdapter adapter;
@@ -37,12 +40,17 @@ public class DrinkTypeBarsActivity extends AppCompatActivity {
 
     private int adapterPos;
 
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink_type_bars);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        sharedPreferences = getSharedPreferences(MainActivity.PREF_NAME,
+                Context.MODE_PRIVATE);
 
         items = new ArrayList<>();
         realm = Realm.getDefaultInstance();
@@ -78,7 +86,7 @@ public class DrinkTypeBarsActivity extends AppCompatActivity {
                             timestamp,
                             deltaRotationVector);
 
-                    if (deltaRotationVector[0] > 0.4) {
+                    if (deltaRotationVector[0] > 0.3) {
                         // up
                         int oldPos = adapterPos;
                         adapterPos -= 1;
@@ -89,7 +97,7 @@ public class DrinkTypeBarsActivity extends AppCompatActivity {
                         rvContacts.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
-                    } else if (deltaRotationVector[0] < -0.4) {
+                    } else if (deltaRotationVector[0] < -0.3) {
                         // down
                         int oldPos = adapterPos;
                         adapterPos += 1;
@@ -106,6 +114,12 @@ public class DrinkTypeBarsActivity extends AppCompatActivity {
                                 new Intent(DrinkTypeBarsActivity.this, BarActivity.class));
                     } else if (deltaRotationVector[1] < -0.3) {
                         // left
+                        sharedPreferences.edit()
+                                .putString(DRINK_TYPE, items.get(adapterPos).getDrinkType())
+                                .apply();
+                        DrinkTypeBarsActivity.this.startActivity(
+                                new Intent(DrinkTypeBarsActivity.this,
+                                        ListDrinkResultsActivity.class));
                     }
                 }
                 timestamp = sensorEvent.timestamp;

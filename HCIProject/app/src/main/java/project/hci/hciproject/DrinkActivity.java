@@ -26,7 +26,7 @@ public class DrinkActivity extends AppCompatActivity {
 
     private ArrayList<Drink> items;
     private RecyclerView rvContacts;
-    private static DrinkAdapter adapter;
+    private DrinkAdapter adapter;
 
     private Realm realm;
 
@@ -80,7 +80,7 @@ public class DrinkActivity extends AppCompatActivity {
                             timestamp,
                             deltaRotationVector);
 
-                    if (deltaRotationVector[0] > 0.4) {
+                    if (deltaRotationVector[0] > 0.3) {
                         // up
                         int oldPos = adapterPos;
                         adapterPos -= 1;
@@ -91,7 +91,7 @@ public class DrinkActivity extends AppCompatActivity {
                         rvContacts.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
-                    } else if (deltaRotationVector[0] < -0.4) {
+                    } else if (deltaRotationVector[0] < -0.3) {
                         // down
                         int oldPos = adapterPos;
                         adapterPos += 1;
