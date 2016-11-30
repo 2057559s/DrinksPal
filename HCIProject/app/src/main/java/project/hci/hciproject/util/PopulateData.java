@@ -368,8 +368,8 @@ public class PopulateData {
             @Override
             public void execute(Realm realm) {
                 realm.copyToRealmOrUpdate(bars);
-                realm.copyToRealmOrUpdate(drinks);
                 realm.copyToRealmOrUpdate(type);
+                realm.copyToRealmOrUpdate(drinks);
             }
         });
 

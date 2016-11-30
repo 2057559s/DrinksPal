@@ -118,7 +118,8 @@ public class DrinkTypeBarsActivity extends AppCompatActivity {
                                 .putString(DRINK_TYPE, items.get(adapterPos).getDrinkType())
                                 .apply();
                         DrinkTypeBarsActivity.this.startActivity(
-                                new Intent(DrinkTypeBarsActivity.this, ListDrinkResultsActivity.class));
+                                new Intent(DrinkTypeBarsActivity.this,
+                                        ListDrinkResultsActivity.class));
                     }
                 }
                 timestamp = sensorEvent.timestamp;

@@ -1,6 +1,5 @@
 package project.hci.hciproject;
 
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +8,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.WindowManager;
@@ -25,7 +25,7 @@ import project.hci.hciproject.realm.DrinkType;
 import project.hci.hciproject.util.GyroSensorLogic;
 
 
-public class ListDrinkResultsActivity extends ListActivity {
+public class ListDrinkResultsActivity extends AppCompatActivity {
 
     @BindView(R.id.listDrinksRV)
     protected RecyclerView listDrinksRV;
@@ -46,7 +46,7 @@ public class ListDrinkResultsActivity extends ListActivity {
 
     private SharedPreferences sharedPreferences;
 
-    private RealmResults<Drink> drinks = null;
+    private RealmResults<Drink> drinks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +71,9 @@ public class ListDrinkResultsActivity extends ListActivity {
                         sharedPreferences.getString(DrinkTypeBarsActivity.DRINK_TYPE, null))
                 .findAll();
 
-
-        if (bar.size() == 1 && drinkType.size() == 1) {
-            drinks = realm.where(Drink.class)
-                    .equalTo("bar.bar_name", bar.get(0).getBar_name()).findAll();
-            drinks = drinks.where().equalTo("type.type", drinkType.get(0).getDrink()).findAll();
-        }
+//        drinks = realm.where(Drink.class)
+//                .equalTo("bar.bar_name", bar.get(0).getBar_name()).findAll();
+        drinks = realm.where(Drink.class).equalTo("type.type", drinkType.get(0).getDrinkType()).findAll();
 
         for (Drink drink : drinks) {
             items.add(drink);
