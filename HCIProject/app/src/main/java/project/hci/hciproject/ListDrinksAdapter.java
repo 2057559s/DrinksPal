@@ -78,11 +78,7 @@ public class ListDrinksAdapter extends RecyclerView.Adapter<ListDrinksAdapter.Vi
 
         Drink contact = mItems.get(position);
 
-        if(selectedPos == position){
-            viewHolder.itemView.setBackgroundColor(Color.GREEN);
-        }else{
-            viewHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
-        }
+        viewHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

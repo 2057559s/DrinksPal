@@ -88,7 +88,7 @@ public class BarActivity extends AppCompatActivity {
                             timestamp,
                             deltaRotationVector);
 
-                    if (deltaRotationVector[0] > 0.4) {
+                    if (deltaRotationVector[0] > 0.3) {
                         // up
                         int oldPos = adapterPos;
                         adapterPos -= 1;
@@ -99,7 +99,7 @@ public class BarActivity extends AppCompatActivity {
                         rvContacts.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
-                    } else if (deltaRotationVector[0] < -0.4) {
+                    } else if (deltaRotationVector[0] < -0.3) {
                         // down
                         int oldPos = adapterPos;
                         adapterPos += 1;

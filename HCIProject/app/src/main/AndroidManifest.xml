@@ -24,16 +24,27 @@
         </activity>
         <activity
             android:name=".BarActivity"
+            android:label="@string/bars_title"
             android:screenOrientation="portrait" />
         <activity
             android:name=".DrinkActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".PriceRangeActivity" />
+        <activity android:name=".PriceRangeActivity"
+            android:label="@string/price_range_title"
+            android:screenOrientation="portrait" />
         <activity android:name=".add_new_drink" />
-        <activity android:name=".DrinkTypeActivity" />
-        <activity android:name=".DrinkTypeBarsActivity"/>
-        <activity android:name=".BarResultsActivity"/>
-        <activity android:name=".ListDrinkResultsActivity" />
+        <activity android:name=".DrinkTypeActivity"
+            android:label="@string/drink_type_title"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".DrinkTypeBarsActivity"
+            android:label="@string/drink_type_title"
+            android:screenOrientation="portrait" />
+        <activity android:name=".BarResultsActivity"
+            android:label="@string/bars_results_title"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ListDrinkResultsActivity"
+            android:label="@string/drink_results_title"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

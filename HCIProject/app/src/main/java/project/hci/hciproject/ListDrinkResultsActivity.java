@@ -73,7 +73,8 @@ public class ListDrinkResultsActivity extends AppCompatActivity {
 
 //        drinks = realm.where(Drink.class)
 //                .equalTo("bar.bar_name", bar.get(0).getBar_name()).findAll();
-        drinks = realm.where(Drink.class).equalTo("type.type", drinkType.get(0).getDrinkType()).findAll();
+        drinks = realm.where(Drink.class)
+                .equalTo("type.type", drinkType.get(0).getDrinkType()).findAll();
 
         for (Drink drink : drinks) {
             items.add(drink);
