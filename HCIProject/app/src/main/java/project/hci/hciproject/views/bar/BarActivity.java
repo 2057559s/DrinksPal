@@ -1,7 +1,8 @@
-package project.hci.hciproject;
+package project.hci.hciproject.views.bar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -10,65 +11,70 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
-import project.hci.hciproject.realm.Drink;
+import project.hci.hciproject.views.bar.adapter.BarAdapter;
+import project.hci.hciproject.views.drink_type_bars.DrinkTypeBarsActivity;
+import project.hci.hciproject.R;
+import project.hci.hciproject.realm.Bar;
 import project.hci.hciproject.util.GyroSensorLogic;
+import project.hci.hciproject.views.main_activity.MainActivity;
 
 
-public class DrinkActivity extends AppCompatActivity {
+public class BarActivity extends AppCompatActivity {
+
+    public static String BAR_NAME = "bar_name";
+
+    @BindView(R.id.rvItems)
+    protected RecyclerView rvBars;
 
 
-    private ArrayList<Drink> items;
-    private RecyclerView rvContacts;
-    private DrinkAdapter adapter;
-
+    private ArrayList<Bar> items;
+    private BarAdapter adapter;
     private Realm realm;
-
     private SensorManager sensorManager;
     private Sensor sensor;
     private long timestamp;
     private final float[] deltaRotationVector = new float[4];
-
     private SensorEventListener gyroscopeListener;
-
     private int adapterPos;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drink);
+        setContentView(R.layout.activity_bar);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        ButterKnife.bind(this);
+
+        sharedPreferences = getSharedPreferences(MainActivity.PREF_NAME,
+                Context.MODE_PRIVATE);
+
         realm = Realm.getDefaultInstance();
         items = new ArrayList<>();
-        // ...
-        // Lookup the recyclerview in activity layout
-        rvContacts = (RecyclerView) findViewById(R.id.rvItems);
 
         // Initialize contacts
-        RealmResults<Drink> results = realm.where(Drink.class).findAll();
+        RealmResults<Bar> results = realm.where(Bar.class).findAll();
 
-        for (Drink drink : results) {
-            items.add(drink);
+        for (Bar bar : results) {
+            items.add(bar);
         }
-        //items = realm.where(Bar.class).findAll();
-        // Create adapter passing in the sample user data
-        adapter = new DrinkAdapter(this, items);
-        // Attach the adapter to the recyclerview to populate items
-        rvContacts.setAdapter(adapter);
-        // Set layout manager to position the items
-        rvContacts.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter = new BarAdapter(this, items);
+        rvBars.setAdapter(adapter);
+        rvBars.setLayoutManager(new LinearLayoutManager(this));
 
         adapterPos = (int) Math.floor(items.size() / 2);
-        DrinkAdapter.selectedPos = adapterPos;
-        rvContacts.getLayoutManager().scrollToPosition(adapterPos);
+        BarAdapter.selectedPos = adapterPos;
+        rvBars.getLayoutManager().scrollToPosition(adapterPos);
         adapter.notifyItemChanged(adapterPos);
 
         gyroscopeListener = new SensorEventListener() {
@@ -87,8 +93,8 @@ public class DrinkActivity extends AppCompatActivity {
                         if (adapterPos < 0) {
                             adapterPos = items.size()-1;
                         }
-                        DrinkAdapter.selectedPos = adapterPos;
-                        rvContacts.getLayoutManager().scrollToPosition(adapterPos);
+                        BarAdapter.selectedPos = adapterPos;
+                        rvBars.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
                     } else if (deltaRotationVector[0] < -0.3) {
@@ -98,16 +104,20 @@ public class DrinkActivity extends AppCompatActivity {
                         if (adapterPos == items.size()) {
                             adapterPos = 0;
                         }
-                        DrinkAdapter.selectedPos = adapterPos;
-                        rvContacts.getLayoutManager().scrollToPosition(adapterPos);
+                        BarAdapter.selectedPos = adapterPos;
+                        rvBars.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
                     } else if (deltaRotationVector[1] > 0.3) {
                         // right
+
+                        BarActivity.this.startActivity(
+                                new Intent(BarActivity.this, MainActivity.class));
                     } else if (deltaRotationVector[1] < -0.3) {
-                        // left
-                        DrinkActivity.this.startActivity(
-                                new Intent(DrinkActivity.this, MainActivity.class));
+                        sharedPreferences.edit()
+                                .putString(BAR_NAME, items.get(adapterPos).getBar_name()).apply();
+                        BarActivity.this.startActivity(
+                                new Intent(BarActivity.this, DrinkTypeBarsActivity.class));
                     }
                 }
                 timestamp = sensorEvent.timestamp;

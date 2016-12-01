@@ -1,4 +1,4 @@
-package project.hci.hciproject;
+package project.hci.hciproject.views.drink_results;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,10 +19,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import project.hci.hciproject.views.drink_type_bars.DrinkTypeBarsActivity;
+import project.hci.hciproject.views.drink_results.adapter.ListDrinksAdapter;
+import project.hci.hciproject.R;
 import project.hci.hciproject.realm.Bar;
 import project.hci.hciproject.realm.Drink;
 import project.hci.hciproject.realm.DrinkType;
 import project.hci.hciproject.util.GyroSensorLogic;
+import project.hci.hciproject.views.bar.BarActivity;
+import project.hci.hciproject.views.drink_type.adapter.DrinkTypeAdapter;
+import project.hci.hciproject.views.main_activity.MainActivity;
+import project.hci.hciproject.views.price_range.adapter.PriceRangeAdapter;
 
 
 public class ListDrinkResultsActivity extends AppCompatActivity {
@@ -87,7 +94,7 @@ public class ListDrinkResultsActivity extends AppCompatActivity {
         listDrinksRV.setLayoutManager(new LinearLayoutManager(this));
 
         adapterPos = (int) Math.floor(items.size() / 2);
-        PriceRangeAdapter.selectedPos = adapterPos;
+        ListDrinksAdapter.selectedPos = adapterPos;
         listDrinksRV.getLayoutManager().scrollToPosition(adapterPos);
         adapter.notifyItemChanged(adapterPos);
 
@@ -107,7 +114,7 @@ public class ListDrinkResultsActivity extends AppCompatActivity {
                         if (adapterPos < 0) {
                             adapterPos = items.size()-1;
                         }
-                        DrinkTypeAdapter.selectedPos = adapterPos;
+                        ListDrinksAdapter.selectedPos = adapterPos;
                         listDrinksRV.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
@@ -118,7 +125,7 @@ public class ListDrinkResultsActivity extends AppCompatActivity {
                         if (adapterPos == items.size()) {
                             adapterPos = 0;
                         }
-                        DrinkTypeAdapter.selectedPos = adapterPos;
+                        ListDrinksAdapter.selectedPos = adapterPos;
                         listDrinksRV.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);

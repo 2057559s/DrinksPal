@@ -1,4 +1,4 @@
-package project.hci.hciproject;
+package project.hci.hciproject.views.drink_type_bars;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,18 +16,27 @@ import android.view.WindowManager;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import project.hci.hciproject.views.drink_type_bars.adapter.DrinkTypeBarsAdapter;
+import project.hci.hciproject.R;
 import project.hci.hciproject.realm.DrinkType;
 import project.hci.hciproject.util.GyroSensorLogic;
+import project.hci.hciproject.views.bar.BarActivity;
+import project.hci.hciproject.views.drink_results.ListDrinkResultsActivity;
+import project.hci.hciproject.views.main_activity.MainActivity;
 
 public class DrinkTypeBarsActivity extends AppCompatActivity {
 
     public static String DRINK_TYPE = "type";
 
+    @BindView(R.id.rvItems)
+    protected RecyclerView rvDrinkTypeBars;
+
     private ArrayList<DrinkType> items;
-    private RecyclerView rvContacts;
-    private static DrinkTypeBarsAdapter adapter;
+    private DrinkTypeBarsAdapter adapter;
 
     private Realm realm;
 
@@ -49,32 +58,29 @@ public class DrinkTypeBarsActivity extends AppCompatActivity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        ButterKnife.bind(this);
+
         sharedPreferences = getSharedPreferences(MainActivity.PREF_NAME,
                 Context.MODE_PRIVATE);
 
         items = new ArrayList<>();
         realm = Realm.getDefaultInstance();
-        // ...
-        // Lookup the recyclerview in activity layout
-        rvContacts = (RecyclerView) findViewById(R.id.rvItems);
 
-        // Initialize contacts
+
         RealmResults<DrinkType> results = realm.where(DrinkType.class).findAll();
 
         for (DrinkType drink : results) {
             items.add(drink);
         }
-        //items = realm.where(Bar.class).findAll();
-        // Create adapter passing in the sample user data
+
         adapter = new DrinkTypeBarsAdapter(this, items);
-        // Attach the adapter to the recyclerview to populate items
-        rvContacts.setAdapter(adapter);
-        // Set layout manager to position the items
-        rvContacts.setLayoutManager(new LinearLayoutManager(this));
+
+        rvDrinkTypeBars.setAdapter(adapter);
+        rvDrinkTypeBars.setLayoutManager(new LinearLayoutManager(this));
 
         adapterPos = (int) Math.floor(items.size() / 2);
         DrinkTypeBarsAdapter.selectedPos = adapterPos;
-        rvContacts.getLayoutManager().scrollToPosition(adapterPos);
+        rvDrinkTypeBars.getLayoutManager().scrollToPosition(adapterPos);
         adapter.notifyItemChanged(adapterPos);
 
         gyroscopeListener = new SensorEventListener() {
@@ -94,7 +100,7 @@ public class DrinkTypeBarsActivity extends AppCompatActivity {
                             adapterPos = items.size()-1;
                         }
                         DrinkTypeBarsAdapter.selectedPos = adapterPos;
-                        rvContacts.getLayoutManager().scrollToPosition(adapterPos);
+                        rvDrinkTypeBars.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
                     } else if (deltaRotationVector[0] < -0.3) {
@@ -105,7 +111,7 @@ public class DrinkTypeBarsActivity extends AppCompatActivity {
                             adapterPos = 0;
                         }
                         DrinkTypeBarsAdapter.selectedPos = adapterPos;
-                        rvContacts.getLayoutManager().scrollToPosition(adapterPos);
+                        rvDrinkTypeBars.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
                     } else if (deltaRotationVector[1] > 0.3) {

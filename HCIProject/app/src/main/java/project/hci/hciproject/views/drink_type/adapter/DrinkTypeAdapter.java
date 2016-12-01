@@ -1,4 +1,4 @@
-package project.hci.hciproject;
+package project.hci.hciproject.views.drink_type.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import project.hci.hciproject.R;
 import project.hci.hciproject.realm.DrinkType;
 
 /**
@@ -18,55 +19,45 @@ import project.hci.hciproject.realm.DrinkType;
 
 public class DrinkTypeAdapter extends RecyclerView.Adapter<DrinkTypeAdapter.ViewHolder> {
 
-    static int selectedPos;
+    public static int selectedPos;
 
-    // Provide a direct reference to each of the views within a data item
-    // Used to cache the views within the item layout for fast access
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        // Your holder should contain a member variable
-        // for any view that will be set as you render a row
+
         public TextView nameTextView;
 
         public ViewHolder(View itemView) {
-            // Stores the itemView in a public final member variable that can be used
-            // to access the context from any ViewHolder instance.
+
             super(itemView);
 
             nameTextView = (TextView) itemView.findViewById(R.id.item_name);
         }
     }
 
-    // Store a member variable for the contacts
+
     private List<DrinkType> mItems;
-    // Store the context for easy access
     private Context mContext;
 
-    // Pass in the contact array into the constructor
+
     public DrinkTypeAdapter(Context context, List<DrinkType> items) {
         mItems = items;
         mContext = context;
     }
 
-    // Easy access to the context object in the recyclerview
     private Context getContext() {
         return mContext;
     }
 
-    // Usually involves inflating a layout from XML and returning the holder
     @Override
     public DrinkTypeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        // Inflate the custom layout
         View contactView = inflater.inflate(R.layout.item_contact, parent, false);
 
-        // Return a new holder instance
         DrinkTypeAdapter.ViewHolder viewHolder = new DrinkTypeAdapter.ViewHolder(contactView);
         return viewHolder;
     }
 
-    // Involves populating data into the item through holder
     @Override
     public void onBindViewHolder(DrinkTypeAdapter.ViewHolder viewHolder, final int position) {
 
@@ -92,13 +83,11 @@ public class DrinkTypeAdapter extends RecyclerView.Adapter<DrinkTypeAdapter.View
         });
 
 
-        // Set item views based on your views and data model
         TextView textView = viewHolder.nameTextView;
         textView.setText(contact.getDrinkType());
 
     }
 
-    // Returns the total count of items in the list
     @Override
     public int getItemCount() {
         return mItems.size();

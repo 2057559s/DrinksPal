@@ -1,4 +1,4 @@
-package project.hci.hciproject;
+package project.hci.hciproject.views.price_range;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,23 +11,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.realm.Realm;
-import io.realm.RealmResults;
-import project.hci.hciproject.realm.Drink;
+import project.hci.hciproject.views.price_range.adapter.PriceRangeAdapter;
+import project.hci.hciproject.R;
 import project.hci.hciproject.util.GyroSensorLogic;
+import project.hci.hciproject.views.bar_results.BarResultsActivity;
+import project.hci.hciproject.views.drink_type.DrinkTypeActivity;
+import project.hci.hciproject.views.main_activity.MainActivity;
 
 
 public class PriceRangeActivity extends AppCompatActivity {
 
     public static String PRICE = "price";
 
+    @BindView(R.id.rvItems)
+    protected RecyclerView rvPriceRange;
+
     private ArrayList<Double> items;
-    private RecyclerView rvContacts;
     private PriceRangeAdapter adapter;
 
     private Realm realm;
@@ -50,30 +56,28 @@ public class PriceRangeActivity extends AppCompatActivity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        ButterKnife.bind(this);
+
         sharedPreferences = getSharedPreferences(MainActivity.PREF_NAME, Context.MODE_PRIVATE);
 
         realm = Realm.getDefaultInstance();
 
         items = new ArrayList<>();
-        // ...
-        // Lookup the recyclerview in activity layout
-        rvContacts = (RecyclerView) findViewById(R.id.rvItems);
 
         for (double i = 2; i < 10; i+=0.5) {
-            //adds double price
+
             items.add(i);
         }
-        //items = realm.where(Bar.class).findAll();
-        // Create adapter passing in the sample user data
+
         adapter = new PriceRangeAdapter(this, items);
-        // Attach the adapter to the recyclerview to populate items
-        rvContacts.setAdapter(adapter);
-        // Set layout manager to position the items
-        rvContacts.setLayoutManager(new LinearLayoutManager(this));
+
+        rvPriceRange.setAdapter(adapter);
+
+        rvPriceRange.setLayoutManager(new LinearLayoutManager(this));
 
         adapterPos = (int) Math.floor(items.size() / 2);
         PriceRangeAdapter.selectedPos = adapterPos;
-        rvContacts.getLayoutManager().scrollToPosition(adapterPos);
+        rvPriceRange.getLayoutManager().scrollToPosition(adapterPos);
         adapter.notifyItemChanged(adapterPos);
 
         gyroscopeListener = new SensorEventListener() {
@@ -93,7 +97,7 @@ public class PriceRangeActivity extends AppCompatActivity {
                             adapterPos = items.size()-1;
                         }
                         PriceRangeAdapter.selectedPos = adapterPos;
-                        rvContacts.getLayoutManager().scrollToPosition(adapterPos);
+                        rvPriceRange.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
                     } else if (deltaRotationVector[0] < -0.3) {
@@ -104,7 +108,7 @@ public class PriceRangeActivity extends AppCompatActivity {
                             adapterPos = 0;
                         }
                         PriceRangeAdapter.selectedPos = adapterPos;
-                        rvContacts.getLayoutManager().scrollToPosition(adapterPos);
+                        rvPriceRange.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
                     } else if (deltaRotationVector[1] > 0.3) {

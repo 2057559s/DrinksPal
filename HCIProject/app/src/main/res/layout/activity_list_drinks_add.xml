@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/background"
-    tools:context="project.hci.hciproject.ListDrinkResultsActivity">
+    tools:context="project.hci.hciproject.views.drink_results.ListDrinkResultsActivity">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

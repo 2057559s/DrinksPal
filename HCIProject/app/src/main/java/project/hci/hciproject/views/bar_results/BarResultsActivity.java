@@ -1,4 +1,4 @@
-package project.hci.hciproject;
+package project.hci.hciproject.views.bar_results;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,17 +15,22 @@ import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import project.hci.hciproject.views.bar_results.adapter.BarResultsAdapter;
+import project.hci.hciproject.views.price_range.PriceRangeActivity;
+import project.hci.hciproject.views.price_range.adapter.PriceRangeAdapter;
+import project.hci.hciproject.R;
 import project.hci.hciproject.realm.Bar;
 import project.hci.hciproject.realm.Drink;
 import project.hci.hciproject.realm.DrinkType;
 import project.hci.hciproject.util.GyroSensorLogic;
+import project.hci.hciproject.views.drink_type.DrinkTypeActivity;
+import project.hci.hciproject.views.main_activity.MainActivity;
 
 public class BarResultsActivity extends AppCompatActivity {
 
@@ -93,7 +98,7 @@ public class BarResultsActivity extends AppCompatActivity {
         barResultsRV.setLayoutManager(new LinearLayoutManager(this));
 
         adapterPos = (int) Math.floor(items.size() / 2);
-        PriceRangeAdapter.selectedPos = adapterPos;
+        BarResultsAdapter.selectedPos = adapterPos;
         barResultsRV.getLayoutManager().scrollToPosition(adapterPos);
         adapter.notifyItemChanged(adapterPos);
 
@@ -113,7 +118,7 @@ public class BarResultsActivity extends AppCompatActivity {
                         if (adapterPos < 0) {
                             adapterPos = items.size()-1;
                         }
-                        PriceRangeAdapter.selectedPos = adapterPos;
+                        BarResultsAdapter.selectedPos = adapterPos;
                         barResultsRV.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
@@ -124,7 +129,7 @@ public class BarResultsActivity extends AppCompatActivity {
                         if (adapterPos == items.size()) {
                             adapterPos = 0;
                         }
-                        PriceRangeAdapter.selectedPos = adapterPos;
+                        BarResultsAdapter.selectedPos = adapterPos;
                         barResultsRV.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);

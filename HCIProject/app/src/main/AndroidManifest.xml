@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".views.main_activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,26 +23,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BarActivity"
+            android:name=".views.bar.BarActivity"
             android:label="@string/bars_title"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DrinkActivity"
+            android:name=".views.drink.DrinkActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".PriceRangeActivity"
+        <activity android:name=".views.price_range.PriceRangeActivity"
             android:label="@string/price_range_title"
             android:screenOrientation="portrait" />
-        <activity android:name=".add_new_drink" />
-        <activity android:name=".DrinkTypeActivity"
+        <activity android:name=".views.drink_type.DrinkTypeActivity"
             android:label="@string/drink_type_title"
             android:screenOrientation="portrait"/>
-        <activity android:name=".DrinkTypeBarsActivity"
+        <activity android:name=".views.drink_type_bars.DrinkTypeBarsActivity"
             android:label="@string/drink_type_title"
             android:screenOrientation="portrait" />
-        <activity android:name=".BarResultsActivity"
+        <activity android:name=".views.bar_results.BarResultsActivity"
             android:label="@string/bars_results_title"
             android:screenOrientation="portrait" />
-        <activity android:name=".ListDrinkResultsActivity"
+        <activity android:name=".views.drink_results.ListDrinkResultsActivity"
             android:label="@string/drink_results_title"
             android:screenOrientation="portrait"/>
     </application>

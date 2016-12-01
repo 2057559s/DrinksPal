@@ -1,4 +1,4 @@
-package project.hci.hciproject;
+package project.hci.hciproject.views.drink_type;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,17 +15,26 @@ import android.view.WindowManager;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import project.hci.hciproject.views.drink_type.adapter.DrinkTypeAdapter;
+import project.hci.hciproject.views.price_range.PriceRangeActivity;
+import project.hci.hciproject.views.price_range.adapter.PriceRangeAdapter;
+import project.hci.hciproject.R;
 import project.hci.hciproject.realm.DrinkType;
 import project.hci.hciproject.util.GyroSensorLogic;
+import project.hci.hciproject.views.main_activity.MainActivity;
 
 public class DrinkTypeActivity extends AppCompatActivity {
 
     public static String TYPE = "type";
 
+    @BindView(R.id.rvItems)
+    protected RecyclerView rvDrinkTypes;
+
     private ArrayList<DrinkType> items;
-    private RecyclerView rvContacts;
     private DrinkTypeAdapter adapter;
 
     private Realm realm;
@@ -48,31 +57,27 @@ public class DrinkTypeActivity extends AppCompatActivity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        ButterKnife.bind(this);
+
         sharedPreferences = getSharedPreferences(MainActivity.PREF_NAME, Context.MODE_PRIVATE);
 
         items = new ArrayList<>();
         realm = Realm.getDefaultInstance();
-        // ...
-        // Lookup the recyclerview in activity layout
-        rvContacts = (RecyclerView) findViewById(R.id.rvItems);
 
-        // Initialize contacts
         RealmResults<DrinkType> results = realm.where(DrinkType.class).findAll();
 
         for (DrinkType drink : results) {
             items.add(drink);
         }
-        //items = realm.where(Bar.class).findAll();
-        // Create adapter passing in the sample user data
+
         adapter = new DrinkTypeAdapter(this, items);
-        // Attach the adapter to the recyclerview to populate items
-        rvContacts.setAdapter(adapter);
-        // Set layout manager to position the items
-        rvContacts.setLayoutManager(new LinearLayoutManager(this));
+
+        rvDrinkTypes.setAdapter(adapter);
+        rvDrinkTypes.setLayoutManager(new LinearLayoutManager(this));
 
         adapterPos = (int) Math.floor(items.size() / 2);
-        PriceRangeAdapter.selectedPos = adapterPos;
-        rvContacts.getLayoutManager().scrollToPosition(adapterPos);
+        DrinkTypeAdapter.selectedPos = adapterPos;
+        rvDrinkTypes.getLayoutManager().scrollToPosition(adapterPos);
         adapter.notifyItemChanged(adapterPos);
 
         gyroscopeListener = new SensorEventListener() {
@@ -92,7 +97,7 @@ public class DrinkTypeActivity extends AppCompatActivity {
                             adapterPos = items.size()-1;
                         }
                         DrinkTypeAdapter.selectedPos = adapterPos;
-                        rvContacts.getLayoutManager().scrollToPosition(adapterPos);
+                        rvDrinkTypes.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
                     } else if (deltaRotationVector[0] < -0.3) {
@@ -103,7 +108,7 @@ public class DrinkTypeActivity extends AppCompatActivity {
                             adapterPos = 0;
                         }
                         DrinkTypeAdapter.selectedPos = adapterPos;
-                        rvContacts.getLayoutManager().scrollToPosition(adapterPos);
+                        rvDrinkTypes.getLayoutManager().scrollToPosition(adapterPos);
                         adapter.notifyItemChanged(oldPos);
                         adapter.notifyItemChanged(adapterPos);
                     } else if (deltaRotationVector[1] > 0.3) {

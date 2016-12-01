@@ -1,4 +1,4 @@
-package project.hci.hciproject;
+package project.hci.hciproject.views.main_activity;
 
 
 import android.content.Context;
@@ -13,6 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.WindowManager;
 
+import project.hci.hciproject.views.bar.BarActivity;
+import project.hci.hciproject.views.drink_type.DrinkTypeActivity;
+import project.hci.hciproject.R;
 import project.hci.hciproject.util.GyroSensorLogic;
 import android.widget.ImageView;
 
